@@ -228,10 +228,7 @@ const useStyles = makeStyles((theme) => ({
       await api.put(`/tickets/${id}`, {
         status: "closed",
         userId: user?.id,
-        queueId: ticket?.queue?.id,
-        useIntegration: false,
-        promptId: null,
-        integrationId: null
+        queueId: ticket?.queue?.id
       });
     } catch (err) {
       setLoading(false);
@@ -299,10 +296,9 @@ const useStyles = makeStyles((theme) => ({
         // handleChangeTab(null, "open");
         history.push(`/tickets/${ticket.uuid}`);
     };
-	
 	    const handleSendMessage = async (id) => {
         
-        const msg = `{{ms}} *{{name}}*, meu nome é *${user?.name}* e agora vou prosseguir com seu atendimento!`;
+        const msg = user.greetingMessage ? user.greetingMessage : `{{ms}} *{{name}}*, meu nome é *${user?.name}* e agora vou prosseguir com seu atendimento!`;
         const message = {
             read: 1,
             fromMe: true,
@@ -500,7 +496,7 @@ const useStyles = makeStyles((theme) => ({
           {ticket.status === "pending" && (
             <ButtonWithSpinner
               //color="primary"
-              style={{ backgroundColor: 'green', color: 'white', padding: '0px', bottom: '17px', borderRadius: '0px', left: '8px', fontSize: '0.6rem' }}
+              style={{ backgroundColor: 'green', color: 'white', padding: '0px', bottom: '17px', borderRadius: '0px', left: '8px', fontSize: '0.6rem', marginBottom: '5px' }}
               variant="contained"
               className={classes.acceptButton}
               size="small"
