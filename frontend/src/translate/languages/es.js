@@ -260,6 +260,7 @@ const messages = {
 					settings: "Configuración",
 				},
 				appBar: {
+				 notRegister: "No hay registros",
 					i18n: {
 						language: "Español",
 						language_short: "ES"

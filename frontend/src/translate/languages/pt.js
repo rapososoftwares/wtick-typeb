@@ -435,6 +435,7 @@ const messages = {
 						language: "Português",
 						language_short: "PT"
 					},
+		  notRegister: "Nenhum registro",
           user: {
             profile: "Perfil",
             logout: "Sair",

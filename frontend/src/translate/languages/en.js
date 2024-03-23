@@ -256,6 +256,7 @@ const messages = {
 					settings: "Settings",
 				},
 				appBar: {
+					notRegister: "No records found",
 					i18n: {
 						language: "English",
 						language_short: "EN"
