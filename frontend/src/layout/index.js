@@ -41,6 +41,9 @@ import { useDate } from "../hooks/useDate";
 import ColorModeContext from "../layout/themeContext";
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
+import { messages } from "../translate/languages";
+import LanguageIcon from '@material-ui/icons/Language';
+
 
 const drawerWidth = 240;
 
@@ -180,6 +183,7 @@ const LoggedInLayout = ({ children, themeToggle }) => {
   const [userModalOpen, setUserModalOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [languageOpen, setLanguageOpen] = useState(false);
   const { handleLogout, loading } = useContext(AuthContext);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerVariant, setDrawerVariant] = useState("permanent");
@@ -189,10 +193,12 @@ const LoggedInLayout = ({ children, themeToggle }) => {
   const theme = useTheme();
   const { colorMode } = useContext(ColorModeContext);
   const greaterThenSm = useMediaQuery(theme.breakpoints.up("sm"));
-
+  const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
+  
   const [volume, setVolume] = useState(localStorage.getItem("volume") || 1);
 
   const { dateToClient } = useDate();
+
 
 
   //################### CODIGOS DE TESTE #########################################
@@ -288,6 +294,22 @@ const LoggedInLayout = ({ children, themeToggle }) => {
     setAnchorEl(event.currentTarget);
     setMenuOpen(true);
   };
+  
+    const handleLanguageMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+    setLanguageOpen(true);
+  };
+  
+    const handleCloseLanguageMenu = () => {
+    setAnchorEl(null);
+    setLanguageOpen(false);
+  };
+  
+    const handleChooseLanguage = (language) => {
+    localStorage.setItem("language",language);
+    window.location.reload(false);
+  }
+
 
   const handleCloseMenu = () => {
     setAnchorEl(null);
@@ -419,6 +441,45 @@ const LoggedInLayout = ({ children, themeToggle }) => {
           <AnnouncementsPopover />
 
           <ChatPopover />
+		  
+		  
+		    <div>
+            <IconButton
+              aria-label="current language"
+              aria-controls="menu-language"
+              aria-haspopup="true"
+              onClick={handleLanguageMenu}
+              variant="contained"
+              style={{ color: "white" }}
+            >
+              <LanguageIcon />
+            </IconButton>
+            <Menu
+              id="language-appbar"
+              anchorEl={anchorEl}
+              getContentAnchorEl={null}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "right",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={languageOpen}
+              onClose={handleCloseLanguageMenu}
+            >
+            {
+              Object.keys(messages).map((m) => (
+                <MenuItem onClick={() => handleChooseLanguage(m)}>
+                  {messages[m].translations.mainDrawer.appBar.i18n.language}
+                </MenuItem>
+              ))
+            }
+            </Menu>
+          </div>
+		  
+		  
 
           <div>
             <IconButton

@@ -431,6 +431,10 @@ const messages = {
           queueIntegration: "Integrações",
         },
         appBar: {
+					i18n: {
+						language: "Português",
+						language_short: "PT"
+					},
           user: {
             profile: "Perfil",
             logout: "Sair",
