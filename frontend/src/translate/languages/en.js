@@ -111,17 +111,22 @@ const messages = {
 				title: "Contacts",
 				toasts: {
 					deleted: "Contact deleted sucessfully!",
+					deletedAll: "Todos contatos excluídos com sucesso!",
 				},
 				searchPlaceholder: "Search ...",
 				confirmationModal: {
 					deleteTitle: "Delete",
+					deleteAllTitle: "Deletar Todos",
 					importTitlte: "Import contacts",
 					deleteMessage:
 						"Are you sure you want to delete this contact? All related tickets will be lost.",
+					deleteAllMessage: 
+					    "Tem certeza que deseja deletar todos os contatos? Todos os tickets relacionados serão perdidos.",
 					importMessage: "Do you want to import all contacts from the phone?",
 				},
 				buttons: {
 					import: "Import Contacts",
+					delete: "Excluir Todos Contatos",
 					add: "Add Contact",
 				},
 				table: {

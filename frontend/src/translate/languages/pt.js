@@ -153,14 +153,18 @@ const messages = {
         searchPlaceholder: "Pesquisar...",
         confirmationModal: {
           deleteTitle: "Deletar ",
+          deleteAllTitle: "Deletar Todos",
           importTitlte: "Importar contatos",
           deleteMessage:
             "Tem certeza que deseja deletar este contato? Todos os atendimentos relacionados serão perdidos.",
+          deleteAllMessage: "Tem certeza que deseja deletar todos os contatos? Todos os tickets relacionados serão perdidos.",
           importMessage: "Deseja importar todos os contatos do telefone?",
         },
         buttons: {
           import: "Importar Contatos",
           add: "Adicionar Contato",
+          export: "Exportar Contatos",
+          delete: "Excluir Todos Contatos"
         },
         table: {
           name: "Nome",
