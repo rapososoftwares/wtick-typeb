@@ -16,7 +16,8 @@ import WhatsAppIcon from "@material-ui/icons/WhatsApp";
 import SearchIcon from "@material-ui/icons/Search";
 import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
-
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import { Tooltip } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import EditIcon from "@material-ui/icons/Edit";
@@ -109,6 +110,7 @@ const Contacts = () => {
   const [deletingContact, setDeletingContact] = useState(null);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [hasMore, setHasMore] = useState(false);
+  const [deletingAllContact, setDeletingAllContact] = useState(null);
 
   useEffect(() => {
     dispatch({ type: "RESET" });
@@ -207,6 +209,21 @@ const Contacts = () => {
     setSearchParam("");
     setPageNumber(1);
   };
+  
+  
+    const handleDeleteAllContact = async () => {
+    try {
+      await api.delete("/contacts");
+      toast.success(i18n.t("contacts.toasts.deletedAll"));
+      history.go(0);
+    } catch (err) {
+      toastError(err);
+    }
+    setDeletingAllContact(null);
+    setSearchParam("");
+    setPageNumber();
+  };
+  
 
   const handleimportContact = async () => {
     try {
@@ -250,6 +267,7 @@ const Contacts = () => {
             ? `${i18n.t("contacts.confirmationModal.deleteTitle")} ${
                 deletingContact.name
               }?`
+			: deletingAllContact ? `${i18n.t("contacts.confirmationModal.deleteAllTitle")}`
             : `${i18n.t("contacts.confirmationModal.importTitlte")}`
         }
         open={confirmOpen}
@@ -257,11 +275,13 @@ const Contacts = () => {
         onConfirm={(e) =>
           deletingContact
             ? handleDeleteContact(deletingContact.id)
+			: deletingAllContact ? handleDeleteAllContact(deletingAllContact)
             : handleimportContact()
         }
       >
         {deletingContact
           ? `${i18n.t("contacts.confirmationModal.deleteMessage")}`
+		  : deletingAllContact ? `${i18n.t("contacts.confirmationModal.deleteAllMessage")}`
           : `${i18n.t("contacts.confirmationModal.importMessage")}`}
       </ConfirmationModal>
       <MainHeader>
@@ -300,6 +320,20 @@ const Contacts = () => {
           EXPORTAR CONTATOS 
           </Button>
           </CSVLink>
+		  
+		 <Tooltip title={i18n.t("contacts.buttons.delete")}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={(e) => {
+                      setConfirmOpen(true);
+                      setDeletingAllContact(contacts);
+                    }}
+                  >
+                    <DeleteForeverIcon />
+                  </Button>
+         </Tooltip>
+		  
 
         </MainHeaderButtonsWrapper>
       </MainHeader>
